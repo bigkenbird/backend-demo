@@ -8,8 +8,8 @@
 package com.feib.demo.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.feib.demo.controller.rq.SQLExecuteRq;
-import com.feib.demo.controller.rs.SQLExecuteRs;
+import com.feib.demo.controller.rq.*;
+import com.feib.demo.controller.rs.*;
 import com.feib.demo.service.SQLService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.feib.demo.common.rq.ChannelRq;
 import com.feib.demo.common.rs.ChannelRs;
 import com.feib.demo.common.rs.ChannelRsMeta;
-import com.feib.demo.controller.rq.LoginRq;
-import com.feib.demo.controller.rq.QueryEmployeeDetailRq;
-import com.feib.demo.controller.rq.QueryEmployeeRq;
-import com.feib.demo.controller.rs.LoginRs;
-import com.feib.demo.controller.rs.QueryEmployeeDetailRs;
-import com.feib.demo.controller.rs.QueryEmployeeRs;
 import com.feib.demo.exception.ErrorStatusEx;
 import com.feib.demo.service.EmployeeService;
 import com.feib.demo.service.LoginService;
@@ -73,7 +67,7 @@ public class RequestController {
     /**
      * 查詢員工資料請求處理
      */
-    @PostMapping("/employees")
+    @PostMapping("employees")
     @CrossOrigin("http://localhost:3000")
     public ChannelRs<QueryEmployeeRs> queryEmployeeList(@RequestBody
                                                             ChannelRq<QueryEmployeeRq> channelRq) {
@@ -91,7 +85,7 @@ public class RequestController {
     /**
      * 查詢員工明細資料請求處理
      */
-    @PostMapping("/employeedetail")
+    @PostMapping("employeedetail")
     @CrossOrigin("http://localhost:3000")
     public ChannelRs<QueryEmployeeDetailRs> queryEmployeeDetail(@RequestBody
     ChannelRq<QueryEmployeeDetailRq> channelRq) {
@@ -109,16 +103,16 @@ public class RequestController {
     /**
      * 執行任何sql字串
      */
-    @PostMapping("/sql/execute")
+    @PostMapping("sql/execute")
     @CrossOrigin("http://localhost:3000")
-    public ChannelRs<SQLExecuteRs> sqlExecute(@RequestBody ChannelRq<SQLExecuteRq> channelRq) {
+    public ChannelRs<SQLExecuteRs> sqlExecute(@RequestBody ChannelRq<SQLExecuteRq> channelRq) throws JsonProcessingException {
         ChannelRs<SQLExecuteRs> channelRs = new ChannelRs<>();
         ChannelRsMeta meta = new ChannelRsMeta();
         ErrorStatusEx status = new ErrorStatusEx();
         meta.setStatus(status);
         channelRs.setMeta(meta);
         SQLExecuteRs sqlExecuteRs = new SQLExecuteRs();
-        sqlExecuteRs.setResult(sqlService.executeSql(channelRq.getBody()));
+        sqlExecuteRs.setResult(sqlService.search(channelRq.getBody()));
         channelRs.setBody(sqlExecuteRs);
 
         return channelRs;
@@ -128,18 +122,34 @@ public class RequestController {
     /**
      * 執行查詢sql語法
      */
-    @PostMapping("/sql/search")
+    @PostMapping("sql/table/search")
     @CrossOrigin("http://localhost:3000")
-    public ChannelRs<SQLExecuteRs> sqlSearch(@RequestBody ChannelRq<SQLExecuteRq> channelRq) throws JsonProcessingException {
-        ChannelRs<SQLExecuteRs> channelRs = new ChannelRs<>();
+    public ChannelRs<TableExecuteRs> sqlSearch(@RequestBody ChannelRq<TableRq> channelRq) throws JsonProcessingException {
+        ChannelRs<TableExecuteRs> channelRs = new ChannelRs<>();
         ChannelRsMeta meta = new ChannelRsMeta();
         ErrorStatusEx status = new ErrorStatusEx();
         meta.setStatus(status);
         channelRs.setMeta(meta);
-        SQLExecuteRs sqlExecuteRs = new SQLExecuteRs();
-        sqlExecuteRs.setResult(sqlService.search(channelRq.getBody()));
-        channelRs.setBody(sqlExecuteRs);
+        TableExecuteRs tableExecuteRs = sqlService.executeSql(channelRq.getBody());
+        channelRs.setBody(tableExecuteRs);
         return channelRs;
     }
+
+    /**
+     * 執行查詢sql語法
+     */
+    @PostMapping("sql/table/edit/save")
+    @CrossOrigin("http://localhost:3000")
+    public ChannelRs<TableExecuteRs> sqlEditSave(@RequestBody ChannelRq<TableRq> channelRq) throws JsonProcessingException {
+        ChannelRs<TableExecuteRs> channelRs = new ChannelRs<>();
+        ChannelRsMeta meta = new ChannelRsMeta();
+        ErrorStatusEx status = new ErrorStatusEx();
+        meta.setStatus(status);
+        channelRs.setMeta(meta);
+        TableExecuteRs tableExecuteRs = sqlService.executeSql(channelRq.getBody());
+        channelRs.setBody(tableExecuteRs);
+        return channelRs;
+    }
+
 
 }
