@@ -3,13 +3,21 @@ package com.feib.demo.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.feib.demo.controller.rq.SQLExecuteRq;
+import com.feib.demo.controller.rq.SqlReviewRq;
 import com.feib.demo.controller.rq.TableRq;
+import com.feib.demo.controller.rs.SqlReviewRs;
 import com.feib.demo.controller.rs.TableExecuteRs;
+import com.feib.demo.persistence.entity.EmployeeEntity;
+import com.feib.demo.persistence.entity.ReviewEntity;
+import com.feib.demo.persistence.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +27,8 @@ import java.util.Set;
 public class SQLService {
 
     private final JdbcTemplate jdbcTemplate;
+
+    private final ReviewRepository reviewRepository;
 
     public String search(SQLExecuteRq sqlExecuteRq) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -44,6 +54,34 @@ public class SQLService {
         return tableExecuteRs;
     }
 
+    public SqlReviewRs executeSqlReview(SqlReviewRq sqlReviewRq) {
+        SqlReviewRs sqlReviewRs = new SqlReviewRs();
+        ReviewEntity reviewEntity = sqlReviewRq.toReviewCell();
+        reviewRepository.save(reviewEntity);
+        sqlReviewRs.setResult("success");
+        return sqlReviewRs;
+    }
+
+    public SqlReviewRs executeSqlReviewGet(SqlReviewRq sqlReviewRq) {
+        SqlReviewRs sqlReviewRs = new SqlReviewRs();
+        ReviewEntity reviewEntity = sqlReviewRq.toReviewCell();
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreNullValues()
+                .withMatcher("tableName", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
+                .withMatcher("code", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
+                .withMatcher("code", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
+                .withMatcher("reviewer", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
+                .withMatcher("submitter", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
+                .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.ignoreCase());
+        Example<ReviewEntity> example = Example.of(reviewEntity, matcher);
+        Iterable<ReviewEntity> employeeEntities = reviewRepository.findAll(example);
+        List<ReviewEntity> reviewEntityGetList = new ArrayList<>();
+        employeeEntities.forEach(reviewEntityGetList::add);
+        sqlReviewRs.setResult("success");
+        sqlReviewRs.setReviewEntityGetList(reviewEntityGetList);
+        return sqlReviewRs;
+    }
+
     private void checkDataExist(String tableName) throws Exception {
         if(!StringUtils.hasText(tableName)) {
             throw new Exception("tableNamw can not be null or empty");
@@ -52,10 +90,12 @@ public class SQLService {
 
 
     private List<Map<String,Object>> getValues(String tableName) {
-        String sql = String.format("SELECT * FROM %s",tableName);
+        String sql = String.format("SELECT * FROM %s ;",tableName);
         List<Map<String,Object>> values = jdbcTemplate.queryForList(sql);
         values.forEach(map -> map.put("editable", false));
         return values;
     }
+
+
 
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface MenuRepository extends CrudRepository<MenuEntity, Integer> {
 
     List<MenuEntity> findByParentId(int i);
+    
+    List<MenuEntity> findByParentIdAndDisabled(int id, Boolean disabled);
 }

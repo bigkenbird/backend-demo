@@ -15,10 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.feib.demo.common.rq.ChannelRq;
 import com.feib.demo.common.rs.ChannelRs;
@@ -149,6 +146,27 @@ public class RequestController {
         TableExecuteRs tableExecuteRs = sqlService.executeSql(channelRq.getBody());
         channelRs.setBody(tableExecuteRs);
         return channelRs;
+    }
+
+    @PostMapping("sql/table/review/save")
+    @CrossOrigin("http://localhost:3000")
+    public ChannelRs<SqlReviewRs> sqlReviewSave(@RequestBody ChannelRq<SqlReviewRq> channelRq) {
+        ChannelRs<SqlReviewRs> channelRs = new ChannelRs<>();
+        ChannelRsMeta meta = new ChannelRsMeta();
+        ErrorStatusEx status = new ErrorStatusEx();
+        meta.setStatus(status);
+        channelRs.setMeta(meta);
+        System.out.println(channelRq.getBody().getTable());
+        SqlReviewRs sqlReviewRs = sqlService.executeSqlReview(channelRq.getBody());
+        channelRs.setBody(sqlReviewRs);
+        return channelRs;
+    }
+
+    @GetMapping("sql/table/review/get")
+    @CrossOrigin("http://localhost:3000")
+    public ChannelRs<SqlReviewRs> sqlReviewGet(@RequestBody ChannelRq<SqlReviewRq> channelRq) {
+
+        return null;
     }
 
 

@@ -19,13 +19,16 @@ INSERT INTO employee (code, name, title, department, arrivaldate) VALUES ('1015'
 INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (1, 0, '系統管理', 'SYSMGM000', 10, '',true);
 INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (2, 1, '員工資料查詢', 'SYSMGM001', 11, '/esm/esmqu001/home',true);
 INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (3, 1, '員工明細資料查詢', 'SYSMGM002', 12, '/esm/esmqu002/detail',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (4, 1, '功能未實作', 'SYSMGM003', 11, '/oth/othni001/home',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (5, 0, '功能選單1', 'FUNGRP000', 20, '',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (6, 5, '功能未實作', 'FUNGRP001', 21, '/oth/othni001/home',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (7, 5, '功能未實作', 'FUNGRP002', 22, '/oth/othni001/home',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (8, 0, '功能選單2', 'FUNGRO000', 30, '',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (9, 8, '功能未實作', 'FUNGRO001', 31, '/oth/othni001/home',true);
-INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (10, 0, 'SQL', 'SQLMGM000', 10, '/sql/sql001/home',true);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (4, 1, '功能未實作', 'SYSMGM003', 11, '/oth/othni001/home',false);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (5, 0, '功能選單1', 'FUNGRP000', 20, '',false);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (6, 5, '功能未實作', 'FUNGRP001', 21, '/oth/othni001/home',false);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (7, 5, '功能未實作', 'FUNGRP002', 22, '/oth/othni001/home',false);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (8, 0, '功能選單2', 'FUNGRO000', 30, '',false);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (9, 8, '功能未實作', 'FUNGRO001', 31, '/oth/othni001/home',false);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (10, 0, 'SQL語法執行', 'SQLMGM000', 10, '/sql/sql001/home',true);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (11, 10, 'SQL純字串執行', 'SYSMGM001', 11, '/sql/sql002/execute',true);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (12, 10, 'SQL表單顯示', 'SYSMGM002', 12, '/sql/sql003/execute',true);
+INSERT INTO menu (id, parentid, label, menuixd, sort, url, disabled) VALUES (13, 10, 'SQL審核顯示', 'SYSMGM002', 12, '/sql/sql004/view',true);
 
 
 INSERT INTO sys_user (id, account, password, authority) VALUES (1, 'ken','123456','admin');

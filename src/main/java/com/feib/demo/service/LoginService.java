@@ -68,11 +68,11 @@ public class LoginService {
         List<Menu> resultMenus;
 
         if("admin".equals(authority)){
-            List<MenuEntity> allMainMenuInDb = menuRepository.findByParentId(0);
+            List<MenuEntity> allMainMenuInDb = menuRepository.findByParentIdAndDisabled(0,true);
             resultMenus = allMainMenuInDb.stream().map(this::tranDbToView).toList();
         }
         else {
-            List<MenuEntity> oneMainMenuInDb = menuRepository.findByParentId(1);
+            List<MenuEntity> oneMainMenuInDb = menuRepository.findByParentIdAndDisabled(1,true);
             resultMenus = oneMainMenuInDb.stream().map(this::tranDbToView).toList();
         }
 
