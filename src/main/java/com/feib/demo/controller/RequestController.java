@@ -162,11 +162,17 @@ public class RequestController {
         return channelRs;
     }
 
-    @GetMapping("sql/table/review/get")
+    @PostMapping("sql/table/review/get")
     @CrossOrigin("http://localhost:3000")
     public ChannelRs<SqlReviewRs> sqlReviewGet(@RequestBody ChannelRq<SqlReviewRq> channelRq) {
-
-        return null;
+        ChannelRs<SqlReviewRs> result = new ChannelRs<>();
+        SqlReviewRs sqlReviewRs = sqlService.executeSqlReviewGet(channelRq.getBody());
+        result.setBody(sqlReviewRs);
+        ChannelRsMeta meta = new ChannelRsMeta();
+        ErrorStatusEx status = new ErrorStatusEx();
+        meta.setStatus(status);
+        result.setMeta(meta);
+        return result;
     }
 
 
