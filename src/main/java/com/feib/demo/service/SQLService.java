@@ -2,6 +2,7 @@ package com.feib.demo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.feib.demo.common.rs.ReviewRs;
 import com.feib.demo.controller.rq.SQLExecuteRq;
 import com.feib.demo.controller.rq.SqlReviewRq;
 import com.feib.demo.controller.rq.TableRq;
@@ -69,16 +70,22 @@ public class SQLService {
                 .withIgnoreNullValues()
                 .withMatcher("tableName", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
                 .withMatcher("code", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
-                .withMatcher("code", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
                 .withMatcher("reviewer", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
                 .withMatcher("submitter", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
                 .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.ignoreCase());
         Example<ReviewEntity> example = Example.of(reviewEntity, matcher);
-        Iterable<ReviewEntity> employeeEntities = reviewRepository.findAll(example);
-        List<ReviewEntity> reviewEntityGetList = new ArrayList<>();
-        employeeEntities.forEach(reviewEntityGetList::add);
+        Iterable<ReviewEntity> reviewEntities = reviewRepository.findAll(example);
+        List<ReviewRs> reviewRsList = new ArrayList<>();
+        for(ReviewEntity reviewEntityGet : reviewEntities) {
+            ReviewRs reviewRs = new ReviewRs();
+            reviewRs.setReviewEntity(reviewEntityGet);
+            String tableName = reviewEntityGet.getTableName();
+            String code = reviewEntityGet.getCode();
+            reviewRs.setOriginEntity(getValues(tableName,code));
+            reviewRsList.add(reviewRs);
+        }
         sqlReviewRs.setResult("success");
-        sqlReviewRs.setReviewEntityGetList(reviewEntityGetList);
+        sqlReviewRs.setReviewRsList(reviewRsList);
         return sqlReviewRs;
     }
 
@@ -95,6 +102,13 @@ public class SQLService {
         values.forEach(map -> map.put("editable", false));
         return values;
     }
+
+    private Map<String,Object> getValues(String tableName,String code) {
+        String sql = String.format("SELECT * FROM %s WHERE code = '%s' ;",tableName,code);
+        return jdbcTemplate.queryForList(sql).get(0);
+    }
+
+
 
 
 
