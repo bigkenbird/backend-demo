@@ -7,10 +7,10 @@
  */
 package com.feib.demo.controller.rs;
 
-import java.util.List;
-
 import com.feib.demo.common.rs.ChannelRsBody;
 import com.feib.demo.model.Menu;
+
+import java.util.List;
 
 /**
  * <p>

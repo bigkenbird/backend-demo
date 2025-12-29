@@ -7,9 +7,8 @@
  */
 package com.feib.demo.persistence.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.feib.demo.persistence.entity.EmployeeEntity;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * <p>

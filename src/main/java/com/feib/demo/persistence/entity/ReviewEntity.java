@@ -1,6 +1,5 @@
 package com.feib.demo.persistence.entity;
 
-import com.feib.demo.model.DataGridCell;
 import jakarta.persistence.*;
 import lombok.Data;
 

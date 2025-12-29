@@ -7,12 +7,7 @@
  */
 package com.feib.demo.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import ch.qos.logback.core.util.StringUtil;
 import com.feib.demo.common.service.PageService;
 import com.feib.demo.controller.rq.QueryEmployeeDetailRq;
 import com.feib.demo.controller.rq.QueryEmployeeRq;
@@ -24,8 +19,11 @@ import com.feib.demo.model.DataGridValue;
 import com.feib.demo.model.EmployeeCell;
 import com.feib.demo.persistence.entity.EmployeeEntity;
 import com.feib.demo.persistence.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import ch.qos.logback.core.util.StringUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>

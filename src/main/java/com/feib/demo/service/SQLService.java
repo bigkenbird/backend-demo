@@ -8,7 +8,6 @@ import com.feib.demo.controller.rq.SqlReviewRq;
 import com.feib.demo.controller.rq.TableRq;
 import com.feib.demo.controller.rs.SqlReviewRs;
 import com.feib.demo.controller.rs.TableExecuteRs;
-import com.feib.demo.persistence.entity.EmployeeEntity;
 import com.feib.demo.persistence.entity.ReviewEntity;
 import com.feib.demo.persistence.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,6 @@
  */
 package com.feib.demo.persistence.repository;
 
-import com.feib.demo.persistence.entity.EmployeeEntity;
 import com.feib.demo.persistence.entity.ReviewEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.QueryByExampleExecutor;

@@ -7,14 +7,14 @@
  */
 package com.feib.demo.exception;
 
+import com.feib.demo.enums.IErrorCode;
+import com.feib.demo.enums.IErrorSystem;
+import com.feib.demo.enums.SeverityType;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.feib.demo.enums.IErrorCode;
-import com.feib.demo.enums.IErrorSystem;
-import com.feib.demo.enums.SeverityType;
 
 /**
  * 異常資料.

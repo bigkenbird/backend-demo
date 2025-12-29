@@ -8,21 +8,20 @@
 package com.feib.demo.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.feib.demo.controller.rq.*;
-import com.feib.demo.controller.rs.*;
-import com.feib.demo.service.SQLService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.feib.demo.common.rq.ChannelRq;
 import com.feib.demo.common.rs.ChannelRs;
 import com.feib.demo.common.rs.ChannelRsMeta;
+import com.feib.demo.controller.rq.*;
+import com.feib.demo.controller.rs.*;
 import com.feib.demo.exception.ErrorStatusEx;
 import com.feib.demo.service.EmployeeService;
 import com.feib.demo.service.LoginService;
+import com.feib.demo.service.SQLService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>

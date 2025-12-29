@@ -7,19 +7,18 @@
  */
 package com.feib.demo.service;
 
-import java.util.List;
-
+import com.feib.demo.controller.rq.LoginRq;
+import com.feib.demo.controller.rs.LoginRs;
+import com.feib.demo.model.Menu;
 import com.feib.demo.persistence.entity.MenuEntity;
 import com.feib.demo.persistence.entity.SystemUserEntity;
 import com.feib.demo.persistence.repository.MenuRepository;
 import com.feib.demo.persistence.repository.SystemUserRepository;
 import lombok.RequiredArgsConstructor;
-
-import com.feib.demo.controller.rq.LoginRq;
-import com.feib.demo.controller.rs.LoginRs;
-import com.feib.demo.model.Menu;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
